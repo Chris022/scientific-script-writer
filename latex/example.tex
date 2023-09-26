@@ -1,0 +1,106 @@
+\documentclass[12pt, letterpaper]{article}
+
+
+\usepackage[a4paper, margin=3cm, twoside]{geometry} % To create a small page
+\usepackage{fancyhdr}
+\usepackage[bottom]{footmisc} % always place footer at bottom of page 
+
+\usepackage{graphicx} %LaTeX package to import graphics
+\usepackage{marginnote}
+
+\title{My first LaTeX document}
+\author{Hubert Farnsworth}
+\date{August 2022}
+
+\renewcommand*\contentsname{Inhaltsverzeichnis} % Change the title of the Table of contents
+
+%----------------------------------------------------------------------------------------
+%   HEADER AND FOOTER CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\pagestyle{fancy}
+\fancyhead{} % clear header
+\fancyfoot{} % clear footer
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[R]{\rightmark}
+\fancyfoot[LE,RO]{\thepage} % page at left on even and right on odd pages
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+\setcounter{page}{1}
+
+\section{Features}
+
+\subsection{Bold/...}
+
+First document.\footnote{Or at least it was back then}
+\paragraph{bold}
+Some of the \textbf{greatest}
+\paragraph{underline}
+discoveries in \underline{science} 
+\paragraph{kursiv}
+were made by \textbf{\textit{accident}}.
+
+\subsection{Images}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{image}
+    \caption{A nice plot.}
+    \label{fig:mesh1}
+\end{figure}
+
+\subsubsection{Referencing Figures}
+
+As you can see in figure \ref{fig:mesh1},
+\marginnote{This is a margin note shifted 2cm, \textit{up} the page, relative to the line in which it is typeset.}[-2cm]
+the function grows near the origin. 
+This example is on page \pageref{fig:mesh1}.
+\reversemarginpar\marginnote{This is another margin note but shifted 4cm \textit{up} the page, relative to the line in which it is typeset. It is also in the left-hand margin.}[-4cm]
+
+
+
+\subsection{Lists}
+
+\begin{itemize}
+    \item The individual entries are indicated with a black dot, a so-called bullet.
+    \item The text in the entries may be of any length.
+\end{itemize}
+  
+\begin{enumerate}
+    \item This is the first entry in our list.
+    \item The list numbers increase with each entry we add.
+\end{enumerate}
+
+\subsection{Math}
+
+This is a simple math expression \(\sqrt{x^2+1}\) inside text. 
+And this is also the same: 
+\begin{math}
+\sqrt{x^2+1}
+\end{math}
+but by using another command.
+
+This is a simple math expression without numbering
+\[\sqrt{x^2+1}\] 
+separated from text.
+
+This is also the same:
+\begin{displaymath}
+\sqrt{x^2+1}
+\end{displaymath}
+
+And this is a numberd math: 
+\begin{equation}
+E=m
+\end{equation}
+
+\end{document}
