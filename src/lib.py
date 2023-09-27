@@ -52,6 +52,10 @@ def get_string_width(word:str) -> float:
     global pdf
     return float(pdf.get_string_width(word))
 
+def write_text(text:str) -> None:
+    global pdf
+    pdf.text(get_x(),get_y(),text)
+
 def export():
     global pdf
     pdf.output("text.pdf","F")
@@ -91,7 +95,7 @@ def textblock_left_aligned(width:int, line_height:int, text:str):
 
     for line in lines:
         line_text = "".join(line)
-        pdf.text(get_x(),get_y(),line_text) # write line
+        write_text(get_x(),get_y(),line_text) # write line
         set_x(c_x)
         add_y(line_height)
 
@@ -108,7 +112,9 @@ def textblock_right_aligned(width:int, line_height:int, text:str):
     for line in lines:
         line_text = "".join(line)
         line_width = get_string_width(line_text)
-        pdf.text(get_x()-line_width,get_y(),line_text) # write line
+
+        add_x(-line_width)
+        write_text(line_text) # write line
         set_x(c_x)
         add_y(line_height)
 
@@ -125,7 +131,8 @@ def textblock_center_aligned(width:int, line_height:int, text:str):
         line_text = "".join(line)
         line_width = get_string_width(line_text)
 
-        pdf.text(get_x()-line_width/2,get_y(),line_text) # write line
+        add_x(-line_width/2)
+        write_text(line_text) # write line
         set_x(c_x)
         add_y(line_height)
 
@@ -146,14 +153,14 @@ def textblock_block_aligned(width:int, line_height:int, text:str):
 
         for word in line:
             word_width = get_string_width(word)
-            pdf.text(get_x(),get_y(),word)
+            write_text(word)
             add_x(word_width+empty_space_per_word)
         
         set_x(c_x)
         add_y(line_height)
 
     #deal with last line
-    pdf.text(get_x(),get_y(),"".join(lines[-1]))
+    write_text("".join(lines[-1]))
 
 
 
