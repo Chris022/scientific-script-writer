@@ -1,5 +1,5 @@
-from lib import *
-from fpdf import FPDF
+from pdf import *
+from textblock import *
 
 new_document((400,50))
 new_page()
