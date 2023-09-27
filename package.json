@@ -1,0 +1,14 @@
+{
+  "name": "scientific-script-writer",
+  "version": "1.0.0",
+  "description": "A simple program that compiles markdown into pdf",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christoph Weberbauer",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "mathjax": "^3.2.2"
+  }
+}
