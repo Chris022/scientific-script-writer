@@ -63,6 +63,10 @@ def write_text(text:str) -> None:
     global pdf
     pdf.text(get_x(),get_y(),text)
 
+def horizontal_line(width:float) -> None:
+    pdf.line(get_x(),get_y(),get_x()+width,get_y())
+    add_x(width)
+
 def write_text_line(text:str) -> None:
     global pdf
     pdf.text(get_x(),get_y(),text)
