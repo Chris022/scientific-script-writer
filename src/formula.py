@@ -14,11 +14,11 @@ class Term:
         return to_abs_height(self.relative_height)
 
 def frac(a:Term,b:Term) -> Term:
-    minimize_factor = 3
+    minimize_factor = 0.8
     def render():
-        width = max(a.relative_width,b.relative_width)*get_font_size()
+        width = max(a.relative_width,b.relative_width)*get_font_size()*1.2
         normal_font = get_font_size()
-        minimized_font = get_font_size()-minimize_factor
+        minimized_font = get_font_size()*minimize_factor
 
         #draw line
         horizontal_line(width)
@@ -47,7 +47,7 @@ def frac(a:Term,b:Term) -> Term:
         add_y(-0.125*get_font_size())
         add_x(width)
 
-    return Term(render,a.relative_height*(get_font_size()-minimize_factor)/get_font_size()+b.relative_height*(get_font_size()-minimize_factor)/get_font_size()+0.25,max(a.relative_width,b.relative_width))
+    return Term(render,a.relative_height*(get_font_size()*minimize_factor)/get_font_size()+b.relative_height*(get_font_size()*minimize_factor)/get_font_size()+0.25,max(a.relative_width,b.relative_width)*1.2)
 
 
 def math_binary_op(a:Term,b:Term,op:str) -> Term:
