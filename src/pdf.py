@@ -45,6 +45,10 @@ def get_font_size() -> float:
     global font_size
     return font_size
 
+def to_abs_height(rel:float) -> float:
+    global font_size
+    return font_size*rel
+
 def add_x(dx:float):
     global pdf
     pdf.set_x(pdf.get_x() + dx)
@@ -64,8 +68,13 @@ def write_text(text:str) -> None:
     pdf.text(get_x(),get_y(),text)
 
 def horizontal_line(width:float) -> None:
+    global pdf
     pdf.line(get_x(),get_y(),get_x()+width,get_y())
     add_x(width)
+
+def position_point() -> None:
+    global pdf
+    pdf.ellipse(get_x()-0.25,get_y()-0.25,0.5,0.5)
 
 def write_text_line(text:str) -> None:
     global pdf

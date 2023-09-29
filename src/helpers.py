@@ -3,7 +3,7 @@
 
 def to_point(a:float) -> float:
     """converts a value in mm to point"""
-    return 1/0.35 * a
+    return a * 4.2
 
 def split_text_whitespace_right(text:str) -> list:
     """takes a string and creates a list of words where the space always is appended at the end of a word."""
