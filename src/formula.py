@@ -5,42 +5,49 @@ from helpers import *
 
 class Term:
 
-    def __init__(self,render,relative_height,width) -> None:
+    def __init__(self,render,relative_height,relative_width) -> None:
         self.render = render
-        self.width = width
+        self.relative_width = relative_width
         self.relative_height = relative_height # relative_height * font_size = actual height
 
     def get_abs_height(self):
         return to_abs_height(self.relative_height)
 
 def frac(a:Term,b:Term) -> Term:
+    minimize_factor = 3
     def render():
-        width = max(a.width,b.width)
+        width = max(a.relative_width,b.relative_width)*get_font_size()
+        normal_font = get_font_size()
+        minimized_font = get_font_size()-minimize_factor
 
         #draw line
         horizontal_line(width)
         add_x(-width)
-        add_y(-0.25*get_font_size())
+        add_y(-0.125*get_font_size())
         
+        set_font_size(minimized_font)
         add_y(-a.get_abs_height()/2)
-        add_x((width-a.width)/2)
+        add_x((width-a.relative_width*get_font_size())/2)
         a.render()
-        add_x(-width/2-a.width/2)
+        add_x(-(width+a.relative_width*get_font_size())/2)
         add_y(a.get_abs_height()/2)
+        set_font_size(normal_font)
 
-        add_y(0.5*get_font_size())
+        add_y(0.25*get_font_size())
 
+        set_font_size(minimized_font)
         add_y(b.get_abs_height()/2)
-
-        add_x((width-b.width)/2)
+        add_x((width-b.relative_width*get_font_size())/2)
         b.render()
-        add_x(-width/2-b.width/2)
+        add_x(-width/2-b.relative_width*get_font_size()/2)
         add_y(-b.get_abs_height()/2)
+        set_font_size(normal_font)
 
-        add_y(-0.25*get_font_size())
+
+        add_y(-0.125*get_font_size())
         add_x(width)
 
-    return Term(render,a.relative_height+b.relative_height+0.5,max(a.width,b.width))
+    return Term(render,a.relative_height*(get_font_size()-minimize_factor)/get_font_size()+b.relative_height*(get_font_size()-minimize_factor)/get_font_size()+0.25,max(a.relative_width,b.relative_width))
 
 
 def math_multi(a:Term,b:Term) -> Term:
@@ -56,7 +63,7 @@ def math_multi(a:Term,b:Term) -> Term:
         add_y(-1*get_font_size()/2)
 
         b.render()
-    return Term(render,1,a.width + get_font_size("⋅") + b.width)
+    return Term(render,1,a.relative_width + get_string_width("⋅")/get_font_size() + b.relative_width)
     
 
 def math_value(a:str) -> Term:
@@ -64,4 +71,4 @@ def math_value(a:str) -> Term:
         add_y(1*get_font_size()/2)
         write_text_line(a)
         add_y(-1*get_font_size()/2)
-    return Term(render,1,get_string_width(a))
+    return Term(render,1,get_string_width(a)/get_font_size())

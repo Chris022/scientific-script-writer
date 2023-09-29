@@ -4,6 +4,7 @@ from helpers import *
 
 pdf = None
 font_size = 12
+font_family = ""
 
 def new_document(dim:tuple):
     """creates a new FPDF document with the given size"""
@@ -15,9 +16,15 @@ def new_page():
     pdf.add_page()
 
 def set_font(family: str | None = None,style = "",size: int = 0):
-    global pdf,font_size
+    global pdf,font_size, font_family
     font_size = size
+    font_family = family
     pdf.set_font(family=family,style=style,size=to_point(size))
+
+def set_font_size(size: int) -> None:
+    global pdf, font_family, font_size
+    font_size = size
+    pdf.set_font(family=font_family,size=to_point(size))
 
 def set_cursor(x:int,y:int):
     global pdf
