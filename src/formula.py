@@ -50,21 +50,20 @@ def frac(a:Term,b:Term) -> Term:
     return Term(render,a.relative_height*(get_font_size()-minimize_factor)/get_font_size()+b.relative_height*(get_font_size()-minimize_factor)/get_font_size()+0.25,max(a.relative_width,b.relative_width))
 
 
-def math_multi(a:Term,b:Term) -> Term:
+def math_binary_op(a:Term,b:Term,op:str) -> Term:
     def render():
         a.render()
 
-        add_y(1*get_font_size()/2)
+        add_y(get_font_size()/2)
 
         add_x(get_font_size()/10) #add spcae
-        write_text_line("⋅")
+        write_text_line(op)
         add_x(get_font_size()/10) #add spcae
 
-        add_y(-1*get_font_size()/2)
+        add_y(-get_font_size()/2)
 
         b.render()
-    return Term(render,1,a.relative_width + get_string_width("⋅")/get_font_size() + b.relative_width)
-    
+    return Term(render,1,a.relative_width + get_string_width(op)/get_font_size() + b.relative_width)
 
 def math_value(a:str) -> Term:
     def render():
