@@ -19,9 +19,38 @@ class Term:
         if(self.relative_middle == -1): return self.get_abs_height()/2
         return to_abs_height(self.relative_middle)
     
+    def get_abs_middle_top(self):
+        return self.get_abs_height() - self.get_abs_middle()
+    
 
-def math_power():
-    pass
+def math_power(base:Term,power:Term):
+    minify_factor = 0.6
+    def render():
+        y_base = get_y()
+        normal_font = get_font_size()
+        small_font = round(get_font_size()*minify_factor)
+
+        base.render()
+
+        base_middle_top = base.get_abs_middle_top()
+
+        set_font_size(small_font)
+
+        #check if the power is so high, that it passes over the middle line
+        power_middle = power.get_abs_middle()
+
+        #if(power_middle > base_middle_top):
+        #    #if yes, move the power up so that its lower end is accactly at the middle line
+        #    add_y(-(power_middle-base_middle_top))
+
+        add_y(-power.get_abs_middle())
+
+        power.render()
+
+        set_font_size(normal_font)
+        set_y(y_base)
+
+    return Term(render,base.relative_middle+power.relative_height*minify_factor,base.relative_width+power.relative_width*minify_factor,base.relative_middle)
 
 def math_integral():
     pass
@@ -53,20 +82,21 @@ def combine_vertical(components:list,height:int):
     add_x(get_string_width(components[-1][0].char))
 
 def math_brackets(left:str,middle:Term,right:str) -> Term:
-    if(middle.relative_height < 1.1): height = 0
-    else: height = middle.relative_height
+    relative_height = max(middle.relative_width,middle.relative_height-middle.relative_middle)*2
+    if(relative_height < 1.1): height = 0
+    else: height = relative_height
     def render():
         if(height == 0): 
             add_y(get_font_size()/2)
             write_text_line(left)
             add_y(-get_font_size()/2)
-        else: math_bracket(left,round((middle.relative_height-3)/1))
+        else: math_bracket(left,round((relative_height-3)/1))
         middle.render()
         if(height == 0):
             add_y(get_font_size()/2)
             write_text_line(right)
             add_y(-get_font_size()/2)
-        else: math_bracket(right,round((middle.relative_height-3)/1))
+        else: math_bracket(right,round((relative_height-3)/1))
 
     return Term(render,4.5+height,get_string_width(left)+get_string_width(right)/get_font_size() + middle.relative_width)
 
