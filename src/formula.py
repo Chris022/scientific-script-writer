@@ -6,14 +6,37 @@ from specialchars import *
 
 class Term:
 
-    def __init__(self,render,relative_height,relative_width) -> None:
+    def __init__(self,render,relative_height,relative_width,relative_middle = -1) -> None:
         self.render = render
         self.relative_width = relative_width
         self.relative_height = relative_height # relative_height * font_size = actual height
+        self.relative_middle = relative_middle # this is the value from the bottom to the middle of the term
 
     def get_abs_height(self):
         return to_abs_height(self.relative_height)
     
+    def get_abs_middle(self):
+        if(self.relative_middle == -1): return self.get_abs_height()/2
+        return to_abs_height(self.relative_middle)
+    
+
+def math_power():
+    pass
+
+def math_integral():
+    pass
+
+def math_root():
+    pass
+
+def math_sum():
+    pass
+
+def math_multi():
+    pass
+
+def math_lim():
+    pass
     
 def combine_vertical(components:list,height:int):
     """This function takes seperate pices that in sum prodruce a symbol. This symbol can then be scaled vertically!"""
@@ -70,28 +93,28 @@ def math_frac(a:Term,b:Term) -> Term:
         add_y(-0.125*get_font_size())
         
         set_font_size(minimized_font)
-        add_y(-a.get_abs_height()/2)
+        add_y(-a.get_abs_middle())
         add_x((width-a.relative_width*get_font_size())/2)
         a.render()
         add_x(-(width+a.relative_width*get_font_size())/2)
-        add_y(a.get_abs_height()/2)
+        add_y(a.get_abs_middle())
         set_font_size(normal_font)
 
         add_y(0.25*get_font_size())
 
         set_font_size(minimized_font)
-        add_y(b.get_abs_height()/2)
+        add_y(b.get_abs_height() - b.get_abs_middle())
         add_x((width-b.relative_width*get_font_size())/2)
         b.render()
         add_x(-width/2-b.relative_width*get_font_size()/2)
-        add_y(-b.get_abs_height()/2)
+        add_y(-(b.get_abs_height() - b.get_abs_middle()))
         set_font_size(normal_font)
 
 
         add_y(-0.125*get_font_size())
         add_x(width)
 
-    return Term(render,max(a.relative_height,b.relative_height)*2*(get_font_size()*minimize_factor)/get_font_size()+0.25,max(a.relative_width,b.relative_width)*1.2)
+    return Term(render,(a.relative_height+b.relative_height)*(get_font_size()*minimize_factor)/get_font_size()+0.25,max(a.relative_width,b.relative_width)*1.2,b.relative_height*(get_font_size()*minimize_factor)/get_font_size()+0.125)
 
 
 def math_binary_op(a:Term,b:Term,op:str) -> Term:
