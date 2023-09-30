@@ -32,16 +32,7 @@ def math_power(base:Term,power:Term):
 
         base.render()
 
-        base_middle_top = base.get_abs_middle_top()
-
         set_font_size(small_font)
-
-        #check if the power is so high, that it passes over the middle line
-        power_middle = power.get_abs_middle()
-
-        #if(power_middle > base_middle_top):
-        #    #if yes, move the power up so that its lower end is accactly at the middle line
-        #    add_y(-(power_middle-base_middle_top))
 
         add_y(-power.get_abs_middle())
 
