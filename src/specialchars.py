@@ -38,3 +38,6 @@ def right_curly_top(): return SpecialChar("⎫",750)
 def right_curly_middle1(): return SpecialChar("⎪",748/2)
 def right_curly_middle2(): return SpecialChar("⎬",1500)
 def right_curly_bottom(): return SpecialChar("⎭",750)
+
+def integral_top(): return SpecialChar("⌠",1344)
+def integral_bottom(): return SpecialChar("⌡",1322)

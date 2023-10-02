@@ -11,7 +11,7 @@ new_page()
 
 set_font("latinmodern-math","",10)
 
-#textblock_center_aligned(100,10,"hallo ich bin der beste mensch der welt nicht. Da muss mann auch mal ehrlich sein!")
+#textblock_center_aligned(100,10,"hallo ich bin der bessch der welt nicht. Da muss mann auch mal ehrlich sein!")
 set_cursor(20,250)
 bruch = math_frac(math_value("A"),math_value("A"))
 mega_bruch = math_frac(math_frac(bruch,math_frac(bruch,bruch)),math_frac(bruch,math_frac(bruch,bruch)))
@@ -21,5 +21,8 @@ math_brackets("(",power,")").render()
 
 math_value("abc").render()
 
+math_integral(mega_bruch,mega_bruch).render()
+
+math_value("abc").render()
 
 export()

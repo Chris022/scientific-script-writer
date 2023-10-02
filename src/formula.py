@@ -22,6 +22,9 @@ class Term:
     def get_abs_middle_top(self):
         return self.get_abs_height() - self.get_abs_middle()
     
+    def get_abs_width(self):
+        return self.relative_width * get_font_size()
+    
 
 def math_power(base:Term,power:Term):
     minify_factor = 0.6
@@ -43,8 +46,38 @@ def math_power(base:Term,power:Term):
 
     return Term(render,base.relative_middle+power.relative_height*minify_factor,base.relative_width+power.relative_width*minify_factor,base.relative_middle)
 
-def math_integral():
-    pass
+def math_integral(a:Term, b:Term):
+    def render():
+
+        normal_font = get_font_size()
+        small_font = 0.7*normal_font
+
+        add_y(integral_bottom().get_height())
+        write_text(integral_bottom().char)
+
+        add_x(get_string_width(integral_bottom().char)/2)
+        set_font_size(small_font)
+
+        if((a.get_abs_middle()-integral_bottom().get_height()) > 0): add_y(a.get_abs_middle_top()-integral_bottom().get_height())
+        a.render()
+        if((a.get_abs_middle()-integral_bottom().get_height()) > 0): add_y(-(a.get_abs_middle_top()-integral_bottom().get_height()))
+        add_x(-a.get_abs_width())
+        set_font_size(normal_font)
+        add_x(-get_string_width(integral_bottom().char)/2)
+        add_y(-integral_bottom().get_height())
+
+        write_text(integral_top().char)
+
+        add_y(-integral_top().get_height())
+        add_x(get_string_width(integral_bottom().char))
+        set_font_size(small_font)
+        if((b.get_abs_middle()-integral_top().get_height()) > 0): add_y(-(b.get_abs_middle()-integral_top().get_height()))
+        b.render()
+        if((b.get_abs_middle()-integral_top().get_height()) > 0): add_y(b.get_abs_middle()-integral_top().get_height())
+        set_font_size(normal_font)
+        add_y(integral_top().get_height())
+
+    return Term(render,1,1)
 
 def math_root():
     pass
@@ -58,7 +91,7 @@ def math_multi():
 def math_lim():
     pass
     
-def combine_vertical(components:list,height:int):
+def combine_vertical(components:list,height:int = 1):
     """This function takes seperate pices that in sum prodruce a symbol. This symbol can then be scaled vertically!"""
     h = 0
     for component,repeat in components:
