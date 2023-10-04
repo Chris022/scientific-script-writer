@@ -17,11 +17,11 @@ bruch = math_frac(math_value("A"),math_value("A"))
 mega_bruch = math_frac(math_frac(bruch,math_frac(bruch,bruch)),math_frac(bruch,math_frac(bruch,bruch)))
 power = math_power(mega_bruch,mega_bruch)
 
-math_brackets("(",power,")").render()
+math_brackets("(",math_integral(mega_bruch,mega_bruch),")").render()
 
 math_value("abc").render()
 
-math_integral(mega_bruch,mega_bruch).render()
+
 
 math_value("abc").render()
 

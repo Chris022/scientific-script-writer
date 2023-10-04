@@ -47,10 +47,11 @@ def math_power(base:Term,power:Term):
     return Term(render,base.relative_middle+power.relative_height*minify_factor,base.relative_width+power.relative_width*minify_factor,base.relative_middle)
 
 def math_integral(a:Term, b:Term):
+    minify = 0.7
     def render():
 
         normal_font = get_font_size()
-        small_font = 0.7*normal_font
+        small_font = minify*normal_font
 
         add_y(integral_bottom().get_height())
         write_text(integral_bottom().char)
@@ -77,7 +78,7 @@ def math_integral(a:Term, b:Term):
         set_font_size(normal_font)
         add_y(integral_top().get_height())
 
-    return Term(render,1,1)
+    return Term(render,((a.get_abs_middle()+b.get_abs_middle_top())*minify+2*integral_bottom().get_height())/get_font_size(),get_string_width(integral_bottom().char)/get_font_size())
 
 def math_root():
     pass
