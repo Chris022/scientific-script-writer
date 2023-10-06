@@ -1,4 +1,5 @@
 """This File contains functions that can be used to interact with the PDF document"""
+"""This file is messy. Try not to use it!"""
 from fpdf import FPDF
 from helpers import *
 
@@ -69,6 +70,14 @@ def add_y(dy:float):
 def get_string_width(word:str) -> float:
     global pdf
     return float(pdf.get_string_width(word))
+
+def get_string_rel_width(string:str):
+    global pdf
+    font_size = get_font_size()
+    set_font_size(10)
+    rel_width = get_string_width(string)/10
+    set_font_size(font_size)
+    return rel_width
 
 def write_text(text:str) -> None:
     global pdf

@@ -1,9 +1,21 @@
 """This file contains helper functions in general"""
+import pdf as pdf
 
+def to_relative(font_size:float, absolute_value:float):
+    """This function takes the font size and the absolute value (= e.g. the height of a character when using the given fontsize) and returns a relative value"""
+    return absolute_value/font_size
+
+def to_absolute(font_size:float, relative_value:float):
+    """This function takes the font size and the relative value and returns the absolute value"""
+    return font_size*relative_value
 
 def to_point(a:float) -> float:
     """converts a value in mm to point"""
     return a * 4.2
+
+
+
+
 
 def split_text_whitespace_right(text:str) -> list:
     """takes a string and creates a list of words where the space always is appended at the end of a word."""

@@ -1,4 +1,5 @@
 from pdf import *
+"""This file is messy. Try not to use it!"""
 
 class SpecialChar:
     def __init__(self,char:str,fontforge_height:int) -> None:

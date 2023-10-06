@@ -1,4 +1,5 @@
 """This file contains Functions for creating textblocks"""
+"""This file is messy. Try not to use it!"""
 from pdf import *
 from helpers import *
 

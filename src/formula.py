@@ -1,5 +1,5 @@
 """This file holds functions for typeseting math formuals"""
-
+"""This file is messy. Try not to use it!"""
 from pdf import *
 from helpers import *
 from specialchars import *
